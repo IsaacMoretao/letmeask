@@ -1,17 +1,20 @@
 import { useHistory } from 'react-router-dom';
-import ilustrationImg from '../images/illustration.png';
+import ilustrationImg from '../assets/images/illustration.png';
+import { database } from '../services/firebase'
 
-import logoImg from '../images/logo.png';
-import google from '../images/googleIcon.png';
+import logoImg from '../assets/images/logo.png';
+import google from '../assets/images/googleIcon.png';
 import '../Styles/auth.scss';
 
 
 import { Button } from '../components/Button';
 import { useAuth } from '../hooks/useAuth';
+import { FormEvent, useState } from 'react';
 
 export function Home() {
   const history = useHistory();
-  const { user, signInWithGoogle } = useAuth()
+  const { user, signInWithGoogle } = useAuth();
+  const [roomCode, setRoomCode] = useState('');
 
   async function handleCreateRoom() {
     if (!user) {
@@ -19,6 +22,21 @@ export function Home() {
     }
 
     history.push('/rooms/new');
+  }
+  async function handleJoinRoom(event: FormEvent) {
+    event.preventDefault();
+
+    const roomRef = await database.ref(`rooms/${roomCode}`).get();
+
+    if (!roomRef.exists()) {
+
+      alert('Room does not Exists.');
+      return;
+
+    }
+
+    history.push(`/rooms${roomCode}`)
+
   }
 
   return(
@@ -32,16 +50,19 @@ export function Home() {
       <main>
         <div className='main-content'> 
           <img src={logoImg} alt="" />
-          <form>
+          <form onSubmit={handleJoinRoom}>
             
             <button onClick={handleCreateRoom} className='create-room'>
               <img src={google} />
               crie sua sala com o google
             </button>
-            <div className='separador'>ou entre em uma sala</div>
+            <div className='separador' >ou entre em uma sala</div>
             <input
               type="text"
               placeholder='Digite o código da sala'
+              onChange={event => setRoomCode (event.target.value)}
+              value={roomCode}
+
             />
           </form>
           
