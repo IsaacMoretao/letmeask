@@ -1,9 +1,9 @@
 import { useHistory } from 'react-router-dom';
-import ilustrationImg from '../assets/images/illustration.png';
+import ilustrationImg from '../assets/images/illustration.svg';
 import { database } from '../services/firebase'
 
-import logoImg from '../assets/images/logo.png';
-import google from '../assets/images/googleIcon.png';
+import logoImg from '../assets/images/logo.svg';
+import google from '../assets/images/google-icon.svg';
 import '../Styles/auth.scss';
 
 

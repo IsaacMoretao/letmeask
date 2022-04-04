@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import '../Styles/question.scss'
 
 type QuestionProps ={
@@ -5,7 +7,8 @@ type QuestionProps ={
   author: {
     name: string;
     avatar: string;
-  }
+  };
+  children?: ReactNode;
 
 }
 

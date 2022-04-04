@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { useParams } from 'react-router-dom'
 
-import logoImg from '../assets/images/logo.png';
+import logoImg from '../assets/images/logo.svg';
 import { Button } from '../components/Button';
 import { RoomCode } from '../components/RoomCode';
 
@@ -10,7 +10,7 @@ import { useRoom } from '../hooks/useRoom';
 import { database } from '../services/firebase';
 
 import '../Styles/Room.scss';
-import { Question } from './Question';
+import { Question } from '../components/Question';
 
 
 type RoomParams = {
@@ -57,7 +57,10 @@ export function AdiminRoom() {
       <header>
         <div className="content">
           <img src={logoImg} alt="Letmeask" />
-          <RoomCode code={roomId} />
+          <div>
+            <RoomCode code={roomId} />
+            <Button>Encerrar sala</Button>
+          </div>
         </div>
       </header>
 
